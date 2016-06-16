@@ -10,7 +10,7 @@ class tftp::config {
       if $::osfamily =~ /^(FreeBSD|DragonFly)$/ {
         augeas { 'set root directory':
           context => '/files/etc/rc.conf',
-          changes => "set tftpd_flags '\"-s ${::tftp::root} ${::tftp::tftpd_flags}\"'",
+          changes => "set tftpd_flags '\"-s ${::tftp::root} ${::tftp::tftp_flags}\"'",
         }
       }
     }
@@ -20,7 +20,7 @@ class tftp::config {
       xinetd::service { 'tftp':
         port        => '69',
         server      => '/usr/sbin/in.tftpd',
-        server_args => "-v -s ${::tftp::root} -m /etc/tftpd.map ${::tftp::tftpd_flags}",
+        server_args => "-v -s ${::tftp::root} -m /etc/tftpd.map ${::tftp::tftp_flags}",
         socket_type => 'dgram',
         protocol    => 'udp',
         cps         => '100 2',

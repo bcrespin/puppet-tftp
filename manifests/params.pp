@@ -5,6 +5,7 @@ class tftp::params {
       $package = 'tftpd-hpa'
       $daemon  = true
       $service = 'tftpd-hpa'
+      $tftp_flags = undef
       if $::operatingsystem == 'Ubuntu' and versioncmp($::operatingsystemrelease, '16.04') >= 0 {
         # 16.04's Puppet package defaults to upstart (https://bugs.launchpad.net/ubuntu/+source/puppet/+bug/1570472)
         $service_provider = 'systemd'
@@ -27,6 +28,7 @@ class tftp::params {
       $package          = 'tftp-server'
       $daemon           = false
       $syslinux_package = 'syslinux'
+      $tftp_flags = undef
       if $::operatingsystemrelease =~ /^(4|5)/ {
         $root  = '/tftpboot'
       } else {
@@ -39,6 +41,7 @@ class tftp::params {
           $package          = 'tftp-server'
           $daemon           = false
           $root             = '/var/lib/tftpboot'
+          $tftp_flags = undef
           $syslinux_package = 'syslinux'
         }
         default: {
@@ -52,6 +55,7 @@ class tftp::params {
       $service = 'tftpd'
       $service_provider = undef
       $root = '/tftpboot'
+      $tftp_flags = undef
       $syslinux_package = 'syslinux'
     }
     'Archlinux': {
@@ -60,9 +64,10 @@ class tftp::params {
       $service          = 'tftpd.socket' #systemd starts the socket not the service
       $syslinux_package = 'syslinux'
       $root             = '/srv/tftp'
+      $tftp_flags = undef
     }
-    $tftp_flags = undef
-    
+
+
     default: {
       fail("${::hostname}: This module does not support osfamily ${::osfamily}")
     }

@@ -5,7 +5,7 @@
 # === Parameters
 #
 # $root:: Configures the root directory for the TFTP server
-# $tfp_flags:: allow to pass addiotional arguments to daemon
+# $tftp_flags:: allow to pass addiotional arguments to daemon
 # $package:: name of the tftp package
 # $syslinux_package:: name of the syslinux package, essential for pxe boot
 #
@@ -27,7 +27,7 @@
 #  }
 class tftp (
   $root             = $tftp::params::root,
-  $tfp_flags        = $tftp::params::tfp_flags,
+  $tftp_flags       = $tftp::params::tftp_flags,
   $package          = $tftp::params::package,
   $syslinux_package = $tftp::params::syslinux_package,
 ) inherits tftp::params {

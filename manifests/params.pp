@@ -61,7 +61,8 @@ class tftp::params {
       $syslinux_package = 'syslinux'
       $root             = '/srv/tftp'
     }
-
+    $tftp_flags = undef
+    
     default: {
       fail("${::hostname}: This module does not support osfamily ${::osfamily}")
     }

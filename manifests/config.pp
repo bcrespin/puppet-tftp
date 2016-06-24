@@ -39,23 +39,23 @@ class tftp::config {
     }
   #end case
   }
-  if (${::tftp::root_source != undef)
+  if (${::tftp::root_source == undef)
   {
     file { "${::tftp::root}":
       ensure  => directory,
       notify  => $notify,
-      source  => "${::tftp::root_source}",
       recurse => "${::tftp::root_recurse}",
       purge   => "${::tftp::root_purge}",
     }
   }
-else
+  else
   {
     file { "${::tftp::root}":
       ensure  => directory,
       notify  => $notify,
       recurse => "${::tftp::root_recurse}",
       purge   => "${::tftp::root_purge}",
+      source  => "${::tftp::root_source}",
     }
   }
   # end class

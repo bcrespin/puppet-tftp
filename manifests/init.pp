@@ -27,6 +27,9 @@
 #  }
 class tftp (
   $root             = $tftp::params::root,
+  $root_source      = undef,
+  $root_purge       = false,
+  $root_recurse     = false,
   $tftp_flags       = $tftp::params::tftp_flags,
   $package          = $tftp::params::package,
   $syslinux_package = $tftp::params::syslinux_package,

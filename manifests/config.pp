@@ -4,7 +4,7 @@ class tftp::config {
   case $::tftp::params::daemon {
     default:
     {
-      $notify = Service['tftp']
+      $notify = Service["${$tftp::params::service}"]
 
       if $::osfamily =~ /^(FreeBSD|DragonFly)$/ {
         augeas { 'set root directory':
@@ -37,17 +37,26 @@ class tftp::config {
         notify  => $notify,
       }
     }
-
-    file { $::tftp::root:
-      ensure  => directory,
-      notify  => $notify,
-      source  => ${::tftp::root_source},
-      recurse => ${::tftp::root_recurse},
-      purge   => ${::tftp::root_purge},
-    }
-
   #end case
   }
-
-# end class
+  if (${::tftp::root_source != undef)
+  {
+    file { "${::tftp::root}":
+      ensure  => directory,
+      notify  => $notify,
+      source  => "${::tftp::root_source}",
+      recurse => "${::tftp::root_recurse}",
+      purge   => "${::tftp::root_purge}",
+    }
+  }
+else
+  {
+    file { "${::tftp::root}":
+      ensure  => directory,
+      notify  => $notify,
+      recurse => "${::tftp::root_recurse}",
+      purge   => "${::tftp::root_purge}",
+    }
+  }
+  # end class
 }

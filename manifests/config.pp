@@ -39,7 +39,7 @@ class tftp::config {
     }
   #end case
   }
-  if (${::tftp::root_source == undef)
+  if ($::tftp::root_source == undef)
   {
     file { "${::tftp::root}":
       ensure  => directory,
